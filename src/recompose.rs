@@ -25,6 +25,32 @@ pub trait RecomposableWaveletLayers: Iterator<Item = WaveletLayer> {
         clippy::cast_possible_truncation,
         clippy::cast_lossless
     )]
+    fn recompose_into_vec(
+        self,
+        width: usize,
+        height: usize,
+        output_layer: OutputLayer,
+    ) -> Vec<f32>
+    where
+        Self: Sized,
+    {
+        match output_layer {
+            OutputLayer::Grayscale => {
+                let mut result = Array2::<f32>::zeros((height, width));
+
+                for layer in self {
+                    match layer.buffer {
+                        WaveletLayerBuffer::Grayscale { data } => {
+                            result += &data;
+                        }
+                        _ => unimplemented!(),
+                    }
+                }
+                result.into_raw_vec()
+            }
+            _ => panic!("")
+        }
+    }
     fn recompose_into_image(
         self,
         width: usize,

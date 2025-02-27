@@ -32,7 +32,7 @@ impl Scale {
 }
 
 #[derive(Clone)]
-enum ATrousTransformInput {
+pub enum ATrousTransformInput {
     Grayscale { data: Array2<f32> },
     Rgb { data: Array3<f32> },
 }
@@ -55,10 +55,10 @@ impl Aggregate for ATrousTransformInput {
 
 #[derive(Clone)]
 pub struct ATrousTransform {
-    input: ATrousTransformInput,
-    levels: usize,
-    kernel: Kernel,
-    current_level: usize,
+    pub input: ATrousTransformInput,
+    pub levels: usize,
+    pub kernel: Kernel,
+    pub current_level: usize,
 }
 
 impl ATrousTransform {
