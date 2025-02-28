@@ -36,7 +36,7 @@ pub trait RecomposableWaveletLayers: Iterator<Item = WaveletLayer> {
     {
         match output_layer {
             OutputLayer::Grayscale => {
-                let mut result = Array2::<f32>::zeros((height, width));
+                let mut result = Array2::<f32>::zeros((width, height));
 
                 for layer in self {
                     match layer.buffer {
